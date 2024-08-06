@@ -2,7 +2,7 @@
   "scripts": {
     "start": "ts-node"
   },
-  "name": "Titles",
+  "name": "articles",
   "packageManager": "yarn@4.3.1",
   "dependencies": {
     "ts-node": "^10.9.2",

@@ -1,6 +1,6 @@
 import { describe, it, expect } from '@jest/globals'
 import { getMessageByKeyTypeA, getMessageByKeyTypeB, getMessageByKey } from './code'
-import { CreateMutable } from '../utils/typeUtils'
+import { CreateMutable } from '../../utils/typeUtils'
 
 describe('Сложные объекты и ключи', () => {
   const testData = [
