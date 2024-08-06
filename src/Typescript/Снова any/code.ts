@@ -31,3 +31,18 @@ export const anyAgainEx3 = () => {
     value3: 100
   }
 }
+
+export const anyAgainCounts: { [key: string]: number } = {}
+
+const decoratorCount = function<T extends (...p: any[]) => any>(fn: T, desc: string): T {
+  anyAgainCounts[desc] = 0
+
+  return ((...params: any[]) => {
+    anyAgainCounts[desc]++
+
+    return fn(...params)
+  }) as T
+}
+
+export const anyAgainEx4 = decoratorCount((a: number, b: number, c: number): number => a + b + c, 'anyAgainEx4')
+

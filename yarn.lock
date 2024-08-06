@@ -887,18 +887,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"Titles@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "Titles@workspace:."
-  dependencies:
-    "@jest/globals": "npm:^29.7.0"
-    jest: "npm:^29.7.0"
-    ts-jest: "npm:^29.2.4"
-    ts-node: "npm:^10.9.2"
-    typescript: "npm:^5.5.3"
-  languageName: unknown
-  linkType: soft
-
 "abbrev@npm:^2.0.0":
   version: 2.0.0
   resolution: "abbrev@npm:2.0.0"
@@ -1023,6 +1011,18 @@ __metadata:
   checksum: 10c0/b2972c5c23c63df66bca144dbc65d180efa74f25f8fd9b7d9a0a6c88ae839db32df3d54770dcb6460cf840d232b60695d1a6b1053f599d84e73f7437087712de
   languageName: node
   linkType: hard
+
+"articles@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "articles@workspace:."
+  dependencies:
+    "@jest/globals": "npm:^29.7.0"
+    jest: "npm:^29.7.0"
+    ts-jest: "npm:^29.2.4"
+    ts-node: "npm:^10.9.2"
+    typescript: "npm:^5.5.3"
+  languageName: unknown
+  linkType: soft
 
 "async@npm:^3.2.3":
   version: 3.2.5
