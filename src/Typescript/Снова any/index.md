@@ -74,7 +74,7 @@ value3: C<A<string> | B<number>> // string | number
 ```ts
 export const anyAgainCounts: { [key: string]: number } = {}
 
-const decoratorCount = function<T extends (...p: any[]) => any>(fn: T, desc: string): T {
+const decoratorCount = function<T extends (...p: any) => any>(fn: T, desc: string): T {
   if (typeof fn !== 'function') {
     throw 'fn is not function'
   }
@@ -87,14 +87,26 @@ const decoratorCount = function<T extends (...p: any[]) => any>(fn: T, desc: str
     return fn(...params)
   }) as T
 }
-
-export const anyAgainEx4 = decoratorCount((a: number, b: number, c: number): number => a + b + c, 'anyAgainEx4')
 ```
 
 Ключевые моменты использования any:
 1. Задание формы для типа параметра декорируемого подсчитывающей функцией
 2. Отключение типизации, т.к. в данном случае нас вообще не интересует с какими параметрами работает декорирующая функция. О количестве параметров должна заботится декорируемая функция.
 
+Без `any` пример выглядит так:
+```ts
+const decoratorCount2 = <F extends (...args: Parameters<F>) => ReturnType<F>>(fn: F, desc: string) => {
+  anyAgainCounts[desc] = 0
+
+  return ((...params: Parameters<F>) => {
+    anyAgainCounts[desc]++
+
+    return fn(...params)
+  })
+}
+```
+
+Ключевой момент: дизайн системы типов усложнился, но при этом в самой реализации мы ничем из этого не пользуемся. 
 
 ## Заключение
 

@@ -1,5 +1,5 @@
 import { describe, it, expect } from '@jest/globals'
-import { anyAgainCounts, anyAgainEx1, anyAgainEx2, anyAgainEx3, anyAgainEx4 } from './code'
+import { anyAgainCounts, anyAgainEx1, anyAgainEx2, anyAgainEx3, anyAgainEx4, anyAgainEx4_2 } from './code'
 
 describe('Снова any', () => {
   it('Example 1', () => {
@@ -14,5 +14,8 @@ describe('Снова any', () => {
     expect(anyAgainEx4(1, 1, 1)).toBe(3)
     expect(anyAgainEx4(1, 1, 1)).toBe(3)
     expect(anyAgainCounts['anyAgainEx4']).toBe(2)
+
+    expect(anyAgainEx4_2(1, 1, 1)).toBe(3)
+    expect(anyAgainCounts['anyAgainEx4_2']).toBe(1)
   })
 })

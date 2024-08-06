@@ -34,7 +34,7 @@ export const anyAgainEx3 = () => {
 
 export const anyAgainCounts: { [key: string]: number } = {}
 
-const decoratorCount = function<T extends (...p: any[]) => any>(fn: T, desc: string): T {
+const decoratorCount = <T extends (...p: any) => any>(fn: T, desc: string): T => {
   anyAgainCounts[desc] = 0
 
   return ((...params: any[]) => {
@@ -44,5 +44,17 @@ const decoratorCount = function<T extends (...p: any[]) => any>(fn: T, desc: str
   }) as T
 }
 
-export const anyAgainEx4 = decoratorCount((a: number, b: number, c: number): number => a + b + c, 'anyAgainEx4')
+const decoratorCount2 = <F extends (...args: Parameters<F>) => ReturnType<F>>(fn: F, desc: string) => {
+  anyAgainCounts[desc] = 0
+
+  return ((...params: Parameters<F>) => {
+    anyAgainCounts[desc]++
+
+    return fn(...params)
+  })
+}
+const sum3x = (a: number, b: number, c: number): number => a + b + c
+
+export const anyAgainEx4 = decoratorCount(sum3x, 'anyAgainEx4')
+export const anyAgainEx4_2 = decoratorCount2(sum3x, 'anyAgainEx4_2')
 
