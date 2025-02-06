@@ -13,15 +13,15 @@
 Пример 1:
 
 ```ts
-type TA = number | string
-type TB = string
+type A = number | string
+type B = string
 
-type E1 = TA extends TB ? true : false // false
-type E2 = TB extends TA ? true : false // true
+type E1 = A extends B ? true : false // false
+type E2 = B extends A ? true : false // true
 
 export const example1 = () => {
-  let a: TA = 100
-  let b: TB = 'value 100'
+  let a: A = 100
+  let b: B = 'value 100'
 
   b = a
   a = b
@@ -38,14 +38,14 @@ export const example1 = () => {
 
 Вариант 2:
 ```ts
-type TC = (a: number | string) => void
-type TD = (a: string) => void
+type C = (a: number | string) => void
+type D = (a: string) => void
 
-type E3 = TC extends TD ? true : false
-type E4 = TD extends TC ? true : false
+type E3 = C extends D ? true : false
+type E4 = D extends C ? true : false
 
-let c: TC = a => undefined
-let d: TD = a => {
+let c: C = a => undefined
+let d: D = a => {
   if (typeof a !== 'string') {
     throw 'error a in d'
   }
@@ -91,7 +91,7 @@ const example3 = () => {
 Наш конфиг уже имеет флаг `strict->true`. Но никаких ошибок вида ниже мы не получаем:
 
 ```
-TS2322: Type TD is not assignable to type TC
+TS2322: Type D is not assignable to type C
   Types of parameters a and a are incompatible.
     Type string | number is not assignable to type string
       Type number is not assignable to type string

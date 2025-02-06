@@ -48,41 +48,41 @@ type KeyTree = {
   [key: string]: string | KeyTree,
 }
 
-type TExtractAllKeysTypeA<O extends KeyTree, K extends keyof O = keyof O> = K extends string
+type ExtractAllKeysTypeA<O extends KeyTree, K extends keyof O = keyof O> = K extends string
   ? O[K] extends KeyTree
-    ? `${K}.${TExtractAllKeysTypeA<O[K]>}`
+    ? `${K}.${ExtractAllKeysTypeA<O[K]>}`
     : K
   : never
 
-type TExtractAllKeysTypeA_1<O, K extends keyof O = keyof O> = K extends string
+type ExtractAllKeysTypeA_1<O, K extends keyof O = keyof O> = K extends string
   ? O[K] extends string
     ? K
-    : `${K}.${TExtractAllKeysTypeA_1<O[K]>}`
+    : `${K}.${ExtractAllKeysTypeA_1<O[K]>}`
   : never
 
-type TExtractAllKeysTypeA_2<O, K extends keyof O = keyof O> = K extends string
+type ExtractAllKeysTypeA_2<O, K extends keyof O = keyof O> = K extends string
   ? O[K] extends string
     ? K
     : O[K] extends KeyTree
-      ? `${K}.${TExtractAllKeysTypeA_2<O[K]>}`
+      ? `${K}.${ExtractAllKeysTypeA_2<O[K]>}`
       : never
   : never
 
-type TExtractAllKeysTypeB<O> = {
+type ExtractAllKeysTypeB<O> = {
   [K in keyof O]: K extends string
     ? O[K] extends string
       ? K
-      : `${K}.${TExtractAllKeysTypeB<O[K]>}`
+      : `${K}.${ExtractAllKeysTypeB<O[K]>}`
     : never
 }[keyof O]
 
-export const getMessageByKey = (key: TExtractAllKeysTypeA<typeof messages>): string => eval(`messages.${key}`)
+export const getMessageByKey = (key: ExtractAllKeysTypeA<typeof messages>): string => eval(`messages.${key}`)
 
 const isKey = <O extends object>(key: string, data: O): key is keyof O & string => {
   return key in data
 }
 
-export const getMessageByKeyTypeC = (key: TExtractAllKeysTypeA<typeof messages>) => {
+export const getMessageByKeyTypeC = (key: ExtractAllKeysTypeA<typeof messages>) => {
   const keys = key.split('.')
   let tmpValue: object = messages
 
@@ -102,11 +102,11 @@ export const getMessageByKeyTypeC = (key: TExtractAllKeysTypeA<typeof messages>)
 }
 
 const _getMessageByKeyTypeA = <T extends KeyTree>(data: T) => {
-  return (key: TExtractAllKeysTypeA<T>): string => eval(`data.${String(key)}`)
+  return (key: ExtractAllKeysTypeA<T>): string => eval(`data.${String(key)}`)
 }
 
 const _getMessageByKeyTypeB = <T>(data: T) => {
-  return (key: TExtractAllKeysTypeB<T>): string => eval(`data.${String(key)}`)
+  return (key: ExtractAllKeysTypeB<T>): string => eval(`data.${String(key)}`)
 }
 
 export const getMessageByKeyTypeA = _getMessageByKeyTypeA(messages)

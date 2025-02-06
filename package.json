@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "ts-node"
+    "start": "ts-node",
+    "test": "jest"
   },
   "name": "articles",
   "packageManager": "yarn@4.5.0",

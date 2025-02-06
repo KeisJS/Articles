@@ -45,14 +45,14 @@ it('Never again ex1', () => {
 
 - never является подтипом любого типа, поэтому в соответствии с принципом подстановки Барбары Лисков присваивание любому типу never является безопасным: 
 ```ts
-type TValue = string | never extends string ? true : false // true
+type Value = string | never extends string ? true : false // true
 ```
 - функция createSomeDesc выкидывает исключение, если параметр не строка и не число.  
 - присваивание нового значения logValue является недостижимой операцией, что очевидно является некорректным поведением
 
 Сам пример показывает, что будет, если тип параметра расширить "забыв" добавить реализацию для `object`. Тип возвращаемого значения `string | never` я добавил для наглядности.
 
-Несмотря на то, что такое поведение ts может показаться опасным, оно позволяет использовать try/catch. При этом, исчерпывающее описание типов описанное в документации становится необходимым для контролирования ситуация на уровне ts.
+Несмотря на то, что такое поведение ts может показаться опасным, оно позволяет свободно использовать код внутри try/catch. При этом, исчерпывающее описание типов описанное в документации становится необходимым для контролирования ситуация на уровне ts.
 
 ## Выражения типов 
 
@@ -109,9 +109,9 @@ type KeyTree = {
   [key: string]: string | KeyTree,
 }
 
-type TExtractAllKeysTypeA<O extends KeyTree, K extends keyof O = keyof O> = K extends string
+type ExtractAllKeysTypeA<O extends KeyTree, K extends keyof O = keyof O> = K extends string
   ? O[K] extends KeyTree
-    ? `${K}.${TExtractAllKeysTypeA<O[K]>}`
+    ? `${K}.${ExtractAllKeysTypeA<O[K]>}`
     : K
   : never
 ```
@@ -123,13 +123,13 @@ type TExtractAllKeysTypeA<O extends KeyTree, K extends keyof O = keyof O> = K ex
 - Для создания множества всех ключей используем рекурсию
 - Для простоты использования второму дженерику задаем дефолтное значение
 
-В данном случае явное использование never играет скромную роль, отсекая symbol из множества ключей `keyof O`. Но есть и неявное поведение. При значениях ключей отличных от `string | KeyTree`, выражение `${K}.${TExtractAllKeysTypeA<O[K]>}` будет приведено к never и тогда такие ключи будут откинуты. А саму утилиту можно преобразовать к виду:
+В данном случае явное использование never играет скромную роль, отсекая symbol из множества ключей `keyof O`. Но есть и неявное поведение. При значениях ключей отличных от `string | KeyTree`, выражение `${K}.${ExtractAllKeysTypeA<O[K]>}` будет приведено к never и тогда такие ключи будут откинуты. А саму утилиту можно преобразовать к виду:
 
 ```
-type TExtractAllKeysTypeA<O, K extends keyof O = keyof O> = K extends string
+type ExtractAllKeysTypeA<O, K extends keyof O = keyof O> = K extends string
   ? O[K] extends string
     ? K
-    : `${K}.${TExtractAllKeysTypeA<O[K]>}`
+    : `${K}.${ExtractAllKeysTypeA<O[K]>}`
   : never
 ```
 
@@ -137,16 +137,16 @@ type TExtractAllKeysTypeA<O, K extends keyof O = keyof O> = K extends string
 
 Итоговый результат:
 ```ts
-export const getMessageByKey = (key: TExtractAllKeysTypeA<typeof messages>): string => eval(`messages.${key}`)
+export const getMessageByKey = (key: ExtractAllKeysTypeA<typeof messages>): string => eval(`messages.${key}`)
 ```
 
 Вариант 2:
 ```ts
-type TExtractAllKeysTypeB<O> = {
+type ExtractAllKeysTypeB<O> = {
   [K in keyof O]: K extends string
     ? O[K] extends string
       ? K
-      : `${K}.${TExtractAllKeysTypeB<O[K]>}`
+      : `${K}.${ExtractAllKeysTypeB<O[K]>}`
     : never
 }[keyof O]
 ```
@@ -157,12 +157,12 @@ type TExtractAllKeysTypeB<O> = {
 
 И в конце можно рассмотреть функцию, которая работает с любым messages
 ```ts
-const _getMessageByKeyTypeA = <T>(data: T) => {
-  return (key: TExtractAllKeysTypeA<T>): string => eval(`data.${String(key)}`)
+const _getMessageByKeyTypeA = <T extends KeyTree>(data: T) => {
+  return (key: ExtractAllKeysTypeA<T>): string => eval(`data.${String(key)}`)
 }
 
 const _getMessageByKeyTypeB = <T>(data: T) => {
-  return (key: TExtractAllKeysTypeB<T>): string => eval(`data.${String(key)}`)
+  return (key: ExtractAllKeysTypeB<T>): string => eval(`data.${String(key)}`)
 }
 
 export const getMessageByKeyTypeA = _getMessageByKeyTypeA(messages)
