@@ -2,6 +2,7 @@ export const anyAgainEx1 = () => {
   const A: any = 1
   const B: string = A
 
+  //@ts-expect-error
   const C = B.repeat(10)
 }
 
@@ -9,6 +10,7 @@ export const anyAgainEx2 = () => {
   const A: unknown = 1
   const B: string = typeof A === 'string' ? A : '1'
 
+  //@ts-expect-error
   return B.repeat(2)
 }
 
@@ -42,6 +44,17 @@ const decoratorCount = <T extends (...p: any) => any>(fn: T, desc: string): T =>
 
     return fn(...params)
   }) as T
+}
+
+// Аналог decoratorCount, так как использует any
+const decoratorCountShort = <T extends Function>(fn: T, desc: string): T => {
+  anyAgainCounts[desc] = 0
+
+  return ((...params: unknown[]) => {
+    anyAgainCounts[desc]++
+
+    return fn(...params)
+  }) as unknown as T
 }
 
 const decoratorCount2 = <F extends (...args: Parameters<F>) => ReturnType<F>>(fn: F, desc: string) => {
