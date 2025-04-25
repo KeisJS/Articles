@@ -2,7 +2,6 @@ export const anyAgainEx1 = () => {
   const A: any = 1
   const B: string = A
 
-  //@ts-expect-error
   const C = B.repeat(10)
 }
 
@@ -10,7 +9,6 @@ export const anyAgainEx2 = () => {
   const A: unknown = 1
   const B: string = typeof A === 'string' ? A : '1'
 
-  //@ts-expect-error
   return B.repeat(2)
 }
 

@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
     "strict": true,
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "target": "esNext",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "allowImportingTsExtensions": true,
+    "types": ["vitest/globals", "node"],
+  },
 }

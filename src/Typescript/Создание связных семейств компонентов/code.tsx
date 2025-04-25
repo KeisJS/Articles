@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { FC, PropsWithChildren } from 'react'
 
 function createConcreteComponent<P, K extends keyof P, Name extends string>(

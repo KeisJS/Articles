@@ -1,5 +1,4 @@
-import { describe, expect, it } from '@jest/globals'
-import { systemTypesAndSettings } from './code'
+import { systemTypesAndSettings } from './code.ts'
 
 describe('Система типов и настройки', () => {
   it('Example 1', () => {

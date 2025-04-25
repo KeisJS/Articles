@@ -1,5 +1,4 @@
-import { describe, it, expect } from '@jest/globals'
-import { anyAgainCounts, anyAgainEx1, anyAgainEx2, anyAgainEx3, anyAgainEx4, anyAgainEx4_2 } from './code'
+import { anyAgainCounts, anyAgainEx1, anyAgainEx2, anyAgainEx3, anyAgainEx4, anyAgainEx4_2 } from './code.ts'
 
 describe('Снова any', () => {
   it('Example 1', () => {
